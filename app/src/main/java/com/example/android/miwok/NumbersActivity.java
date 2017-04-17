@@ -41,7 +41,7 @@ public class NumbersActivity extends AppCompatActivity {
         final ArrayList<Word> words = new ArrayList<>();
 
         // populate the words ArrayList
-        // TODO: in the artha app this is going to be sync using Firebase
+        // TODO: this is going to be sync using Firebase
         words.add(new Word("one", "lutti", R.drawable.number_one));
         words.add(new Word("two", "otiiko", R.drawable.number_two));
         words.add(new Word("three", "tolookosu", R.drawable.number_three));
