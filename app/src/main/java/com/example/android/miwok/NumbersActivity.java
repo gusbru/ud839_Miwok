@@ -16,6 +16,7 @@
 package com.example.android.miwok;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,21 +54,15 @@ public class NumbersActivity extends AppCompatActivity {
         words.add(new Word("nine", "wo'e", R.drawable.number_nine));
         words.add(new Word("ten", "na'aacha", R.drawable.number_ten));
 
-
-
-
         // link to ListView on Numbers Activity
         ListView listView = (ListView) findViewById(R.id.listViewNumbers);
 
-
         // create a custom ArrayAdapter to treat the word objects
-        WordAdapter textAdapter = new WordAdapter(this, words);
+        WordAdapter textAdapter = new WordAdapter(this, words, R.color.category_numbers);
 
         // attach the adapter previous created to put the word objects into
         // the ListView
         listView.setAdapter(textAdapter);
-
-
 
     }
 }

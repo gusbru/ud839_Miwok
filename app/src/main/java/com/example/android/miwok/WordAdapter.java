@@ -6,6 +6,8 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +24,12 @@ import java.util.ArrayList;
 
 public class WordAdapter extends ArrayAdapter<Word> {
 
+    private int mBackgroundColor;
+
     // constructor
-    public WordAdapter(Activity context, ArrayList<Word> word) {
+    public WordAdapter(Activity context, ArrayList<Word> word, int backgroundColor) {
         super(context, 0, word);
+        this.mBackgroundColor = backgroundColor;
     }
 
     @NonNull
@@ -38,6 +43,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
         }
 
         // Create a word object with the current position
+        // get the {@link Word} object located at this position in the list
         Word currentWord = getItem(position);
 
         // Put on the screen the word in english
@@ -50,9 +56,27 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
         // put on the screen the image related with the word
         ImageView imageView = (ImageView) listItemView.findViewById(R.id.numbers_image_view);
-        imageView.setImageResource(currentWord.getImageResourceId());
+        if (currentWord.hasImage()) {
+            // with image
+            imageView.setImageResource(currentWord.getImageResourceId());
+            imageView.setVisibility(View.VISIBLE);
+        } else {
+            // no image
+            imageView.setVisibility(View.GONE);
+        }
 
 
+        //Set the theme color for the list view
+        View textContainer = listItemView.findViewById(R.id.text_linear_layout);
+
+        //Find the color that the resourceID maps to
+        int color = ContextCompat.getColor(getContext(), mBackgroundColor);
+
+        //Set the background color of the textContainer
+        textContainer.setBackgroundColor(color);
+
+        // Return the whole list item layour (containing 2 textviews and 1 image) so that
+        // it can be shown in the ListView
         return listItemView;
     }
 }

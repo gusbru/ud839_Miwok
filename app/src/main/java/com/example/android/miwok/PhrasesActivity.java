@@ -17,6 +17,9 @@ package com.example.android.miwok;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class PhrasesActivity extends AppCompatActivity {
 
@@ -24,5 +27,21 @@ public class PhrasesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phrases);
+
+        // create and ArrayList that stores Word objects
+        final ArrayList<Word> phrases = new ArrayList<>();
+
+        phrases.add(new Word("Where are you going?", "minto wuksus"));
+        phrases.add(new Word("What is your name?", "tinnә oyaase'nә"));
+
+        // link the ListView in the Phrases with the object listView
+        ListView listView = (ListView) findViewById(R.id.phrases_list_view);
+
+        // create an ListAdapter object
+        WordAdapter wordAdapter = new WordAdapter(this, phrases, R.color.category_phrases);
+
+        // apply the adapter into the listView object
+        listView.setAdapter(wordAdapter);
+
     }
 }
