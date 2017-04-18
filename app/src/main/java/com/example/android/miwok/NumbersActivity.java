@@ -64,5 +64,13 @@ public class NumbersActivity extends AppCompatActivity {
         // the ListView
         listView.setAdapter(textAdapter);
 
+        // action on click
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(), words.get(position).getEnglish(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }
