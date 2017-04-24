@@ -17,6 +17,7 @@ package com.example.android.miwok;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +34,8 @@ import java.util.ArrayList;
 
 public class NumbersActivity extends AppCompatActivity {
 
+    private MediaPlayer mediaPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +46,10 @@ public class NumbersActivity extends AppCompatActivity {
 
         // populate the words ArrayList
         // TODO: this is going to be sync using Firebase
-        words.add(new Word("one", "lutti", R.drawable.number_one));
-        words.add(new Word("two", "otiiko", R.drawable.number_two));
-        words.add(new Word("three", "tolookosu", R.drawable.number_three));
-        words.add(new Word("four", "oyyisa", R.drawable.number_four));
+        words.add(new Word("one", "lutti", R.drawable.number_one, R.raw.number_one));
+        words.add(new Word("two", "otiiko", R.drawable.number_two, R.raw.number_two));
+        words.add(new Word("three", "tolookosu", R.drawable.number_three, R.raw.number_three));
+        words.add(new Word("four", "oyyisa", R.drawable.number_four, R.raw.number_four));
         words.add(new Word("five", "massokka", R.drawable.number_five));
         words.add(new Word("six", "temmokka", R.drawable.number_six));
         words.add(new Word("seven", "kenekaku", R.drawable.number_seven));
@@ -68,7 +71,13 @@ public class NumbersActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), words.get(position).getEnglish(), Toast.LENGTH_SHORT).show();
+                if (words.get(position).hasSound()) {
+                    mediaPlayer = MediaPlayer.create(getApplicationContext(), words.get(position).getmSoundResourceId());
+                    mediaPlayer.start();
+                } else {
+                    Toast.makeText(getApplicationContext(), "No sound available", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
