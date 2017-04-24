@@ -116,4 +116,18 @@ public class Word {
     public boolean hasSound() {
         return mSoundResourceId != NO_SOUND_PROVIDED;
     }
+
+    /**
+     *
+     * @return the states of the word object
+     */
+    @Override
+    public String toString() {
+        return "Word{" +
+                "mEnglish='" + mEnglish + '\'' +
+                ", mMiwok='" + mMiwok + '\'' +
+                ", mImageResourceId=" + mImageResourceId +
+                ", mSoundResourceId=" + mSoundResourceId +
+                '}';
+    }
 }
