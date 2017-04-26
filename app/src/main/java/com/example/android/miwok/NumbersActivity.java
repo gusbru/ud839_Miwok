@@ -36,6 +36,17 @@ public class NumbersActivity extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
 
+    /**
+     * This listener gets triggered when the {@link MediaPlayer} has completed
+     * playing the audio file
+     */
+    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mp) {
+            releaseMediaPlayer();
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,8 +83,21 @@ public class NumbersActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (words.get(position).hasSound()) {
+
+                    // release the media player if it currently exists
+                    releaseMediaPlayer();
+
+                    // create and setup the {@link MediaPlayer} for the audio resource
+                    // associate with the current word
                     mediaPlayer = MediaPlayer.create(getApplicationContext(), words.get(position).getmSoundResourceId());
+
+                    // start play the sound
                     mediaPlayer.start();
+
+                    // Setup a listener on the media player, so that we can stop and
+                    // release the media player once the sounds has finished.
+                    mediaPlayer.setOnCompletionListener(mCompletionListener);
+
                 } else {
                     Toast.makeText(getApplicationContext(), "No sound available", Toast.LENGTH_SHORT).show();
                 }
@@ -82,4 +106,21 @@ public class NumbersActivity extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * Clean up the media player by releasing its resource
+     */
+    private void releaseMediaPlayer() {
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        releaseMediaPlayer();
+    }
+
 }
