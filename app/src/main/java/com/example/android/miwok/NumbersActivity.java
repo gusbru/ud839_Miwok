@@ -35,7 +35,6 @@ import java.util.ArrayList;
 
 public class NumbersActivity extends AppCompatActivity {
 
-    private Context mContext = getApplicationContext();
     private MediaPlayer mediaPlayer;
     private AudioManager am;
     private AudioManager.OnAudioFocusChangeListener afChangeListener =
@@ -86,7 +85,7 @@ public class NumbersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_numbers);
 
         // create and setup the {@link AudioManager} to request audio focus
-        am = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
+        am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         // create an ArrayList of the Word type
         final ArrayList<Word> words = new ArrayList<>();
